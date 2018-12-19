@@ -1,0 +1,65 @@
+<% content_for :title do %>
+Cadastro de Usuários
+<% end -%>
+
+<% content_for :content do %>
+<% form_tag({controller: "login", action: "cadastro"}, method: "post") do %>
+	<br />
+
+	<div class="breadcrumb">
+		<strong>Filmes//TC</strong>
+	</div>
+
+	<br />
+
+	<div class="text-right">
+		<a href="/"> Realizar Login </a>
+	</div>
+
+	<hr />
+
+	<h1 class="text-center">Cadastro de Usuário</h1>
+
+	<br />
+
+	<div class="row">
+		<div class="col-6 form-group">
+			<label>Nome</label>
+			<input type="text" name="nome" class="form-control" value="<%= params[:nome] %>">
+		</div>
+		<div class="col-3 form-group">
+			<label>E-mail</label>
+			<input type="text" name="email" class="form-control" value="<%= params[:email] %>">
+		</div>
+		<div class="col-3 form-group">
+			<label>Senha</label>
+			<input type="password" name="senha" class="form-control">
+		</div>
+		<div class="col-12 form-group">
+			<button name="submit" class="btn btn-primary btn-block btn-lg"> Cadastrar Agora! </button>
+		</div>
+
+		<% if !flash[:error].nil? %>
+			<div class="col-12">
+				<div class="alert alert-danger text-center">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<% flash[:error].each do |message| %>
+						<%= message %> <br />
+					<% end -%>
+				</div>
+			</div>
+		<% end -%>
+		<% if !flash[:notice].nil? %>
+			<div class="col-12">
+				<div class="alert alert-success text-center">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<%= flash[:notice]%> <br />
+				</div>
+			</div>
+		<% end -%>
+	</div>
+	<% end -%>
+<% end -%>
+
+<% render file: "layouts/application" %>
+

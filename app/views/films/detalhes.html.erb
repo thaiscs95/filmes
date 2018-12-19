@@ -1,0 +1,57 @@
+<% content_for :title do %>
+Detalhes do Filme
+<% end -%>
+
+<% content_for :content do %>
+    <br />
+
+    <div class="breadcrumb">
+        <strong>Filmes//TC</strong>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-6">
+            <a href="/filmes"> Listagem de Filmes </a> &nbsp; 
+            <a href="/filmes_votados"> Filmes Mais Votados </a>
+        </div>
+        <div class="col-6 text-right"><a href="/sair"> Sair </a></div>
+    </div>
+
+    <hr />
+
+    <h1 class="text-center">Detalhes do Filme</h1>
+    <% if !flash[:error].nil? %>
+        <div class="col-12">
+            <div class="alert alert-danger text-center">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <% flash[:error].each do |message| %>
+                    <%= message %> <br />
+                <% end -%>
+            </div>
+        </div>
+    <% end -%>
+    <% if !flash[:notice].nil? %>
+        <div class="col-12">
+            <div class="alert alert-success text-center">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= flash[:notice]%> <br />
+            </div>
+        </div>
+    <% end -%>
+    <br />
+
+    <strong>Nome</strong>: <%= @detalhes["title"]%><br />
+    <strong>Episódio</strong>: <%= @detalhes["episode_id"]%> <br />
+    <strong>Descrição</strong>: <%= @detalhes["opening_crawl"]%><br />
+    <strong>Diretor</strong>: <%= @detalhes["director"]%> <br />
+    <strong>Produtor</strong>: <%= @detalhes["producer"]%> <br />
+    <strong>Data de lançamento</strong>: <%= @detalhes["release_date"]%> <br />
+    <strong>Personagens</strong>: <%= @personagens.join(", ")%><br />
+    <strong>Planetas</strong>: <%= @planetas.join(", ")%> <br />
+    <strong>Naves</strong>: <%= @naves.join(", ")%> <br />
+    <strong>Veículos</strong>: <%= @veiculos.join(", ")%> <br />
+    <strong>Especíes</strong>: <%= @especies.join(", ")%> <br />
+<% end -%>
+<% render file: "layouts/application" %>

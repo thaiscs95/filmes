@@ -1,0 +1,90 @@
+<% content_for :title do %>
+Listagem de Filmes
+<% end -%>
+
+<% content_for :content do %>
+
+    <br />
+
+    <div class="breadcrumb">
+        <strong>Filmes//TC</strong>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-6">
+            <a href="/filmes"> Listagem de Filmes </a> &nbsp; 
+            <a href="/filmes_votados"> Filmes Mais Votados </a>
+        </div>
+        <div class="col-6 text-right"><a href="/sair"> Sair </a></div>
+    </div>
+
+    <hr />
+
+    <h1 class="text-center">Listagem de Filmes</h1>
+
+    <br />
+    <% if !flash[:error].nil? %>
+        <div class="col-12">
+            <div class="alert alert-danger text-center">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <% flash[:error].each do |message| %>
+                    <%= message %> <br />
+                <% end -%>
+            </div>
+        </div>
+    <% end -%>
+    <% if !flash[:notice].nil? %>
+        <div class="col-12">
+            <div class="alert alert-success text-center">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= flash[:notice]%> <br />
+            </div>
+        </div>
+	<% end -%>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Episódio</th>
+                <th class="text-center">Diretor</th>
+                <th class="text-center">Ano</th>
+                <th class="text-center">Votar</th>
+            </tr>
+        </thead>
+        <tbody> 
+        <% @films.each do |filme|%>
+            <tr>
+                <td><%= filme[:nome]%></td>
+                <td class="text-center"><%= filme[:episodio]%></td>
+                <td class="text-center"><%= filme[:diretor]%></td>
+                <td class="text-center"><%= filme[:ano]%></td>
+                <td>
+                <%= form_tag({controller: "films", action: "listar"}, method: "post") do %>
+                    <input type="hidden" name="nome" value="<%= filme[:nome]%>">
+                    <input type="hidden" name="episodio" value="<%= filme[:episodio]%>">
+                    <input type="hidden" name="diretor" value="<%= filme[:diretor]%>">
+                    <input type="hidden" name="ano" value="<%= filme[:ano]%>">
+                    <input type="hidden" name="url" value="<%= filme[:url]%>">
+                    <% if @votos.keys.include? filme[:url] %>
+                        <% if @votos[filme[:url]] == "like" %>
+                            liked
+                        <% else %>
+                            disliked
+                        <% end -%>
+                    <% else -%>
+                        <% if @votos.length < 2 %>
+                            <button class="btn btn-primary btn-block" name="acao" value="like"> Like </button>
+                            <button class="btn btn-danger btn-block" name="acao" value="dislike"> Dislike </button>
+                        <% end -%>
+                    <% end %>
+                <% end -%>
+                </td>
+            </tr>
+        <% end -%>
+        </tbody>
+    </table>
+<% end -%>
+<% render file: "layouts/application" %>

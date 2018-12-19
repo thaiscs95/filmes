@@ -1,0 +1,54 @@
+<% content_for :title do %>
+Login
+<% end -%>
+
+<% content_for :content do %>
+    <% form_tag({controller: "login", action: "acessar"}, method: "post") do %>
+
+    <br />
+
+    <div class="breadcrumb">
+        <strong>Filmes//TC</strong>
+    </div>
+
+    <br />
+
+    <div class="text-right">
+        <a href="/cadastro"> Realizar Cadastro </a>
+    </div>
+
+    <hr />
+
+    <h1 class="text-center">Login</h1>
+
+    <br />
+
+    <div class="row">
+        <div class="col-4 mx-auto">
+            <div class="row">
+                <div class="col-12 form-group">
+                    <label>E-mail</label>
+                    <input type="text" name="email" class="form-control">
+                </div>
+                <div class="col-12 form-group">
+                    <label>Senha</label>
+                    <input type="password" name="senha" class="form-control">
+                </div>
+                <div class="col-12 form-group">
+                    <button class="btn btn-primary btn-block btn-lg" name="submit"> Entrar Agora! </button>
+                </div>
+
+                <% if !flash[:error].nil? %>
+                    <div class="col-12">
+                        <div class="alert alert-danger text-center">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <%= flash[:error] %> <br />
+                        </div>
+                    </div>
+                <% end -%>
+            </div>
+        </div>
+    </div>
+    <% end -%>
+<% end -%>
+<% render file: "layouts/application" %>
